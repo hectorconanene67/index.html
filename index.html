@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <!-- Ajusta el escalado y ancho para visualización en dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Web Completa</title>
+
+    <!-- Conexión previa a los servidores de Google Fonts para optimizar la carga -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Importación de fuentes tipográficas: Courier Prime, Montserrat y Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=Montserrat:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. VARIABLES GLOBALES Y RESETEO BÁSICO
+           ========================================================================== */
+        :root {
+            /* Definición de la paleta de colores del sitio mediante variables CSS */
+            --color-principal: #641b21;   /* Azul oscuro para encabezados y fondos oscuros */
+            --color-secundario: #490707;  /* Azul acento para detalles y botones principales */
+            --color-fondo: #faf6f0;       /* Crema suave para el fondo general */
+            --color-tarjeta: #ffffff;     /* Blanco para bloques de contenido */
+            --color-texto: #000000;       /* Gris oscuro para lectura óptima */
+            --color-boton: #ffffff;       /* Azul claro para estados activos/botones */
+        }
+
+        /* Reseteo de márgenes y cálculo de caja para evitar desbordamientos */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilos base del cuerpo de la página */
+        body {
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            font-family: 'Roboto', sans-serif; /* Tipografía por defecto */
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           2. CAMBIO DINÁMICO DE FUENTE (CSS PURO CON LA PSEUDOCLASE :has)
+           ========================================================================== */
+        /* Detecta cuál radio button está seleccionado (:checked) y cambia la tipografía de todo el body */
+        body:has(#font-roboto:checked) { font-family: 'Roboto', sans-serif; }
+        body:has(#font-montserrat:checked) { font-family: 'Montserrat', sans-serif; }
+        body:has(#font-courier:checked) { font-family: 'Courier Prime', monospace; }
+
+        /* ==========================================================================
+           3. ENCABEZADO (HEADER) Y NAVEGACIÓN
+           ========================================================================== */
+        header {
+            background: linear-gradient(135deg, var(--color-principal), #000000); /* Fondo degradado */
+            color: #ffffff;
+            padding: 1.2rem 2rem;
+            display: flex; /* Distribuye título, menú y selector en línea */
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Permite que los elementos bajen en pantallas pequeñas */
+            gap: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .header-title {
+            font-size: 1.6rem;
+        }
+
+        /* Lista del menú desplegada horizontalmente */
+        nav ul {
+            display: flex;
+            list-style: none; /* Quita los puntos de la lista */
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none; /* Quita el subrayado predeterminado */
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        /* Efecto al pasar el cursor sobre los enlaces del menú */
+        nav a:hover {
+            color: #93c5fd;
+        }
+
+        /* Estilos del selector interactivo de tipografías en el header */
+        .font-selector {
+            background-color: rgba(255, 255, 255, 0.12);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Oculta los círculos nativos de los radio buttons */
+        .font-selector input[type="radio"] {
+            display: none;
+        }
+
+        /* Convierte las etiquetas <label> en botones clicables */
+        .font-selector label {
+            cursor: pointer;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.15);
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        /* Estilo para la opción de fuente activa/seleccionada */
+        .font-selector input[type="radio"]:checked + label {
+            background-color: var(--color-boton);
+            color: #000000;
+            font-weight: bold;
+        }
+
+        /* ==========================================================================
+           4. ESTRUCTURA CENTRAL Y CONTENEDORES
+           ========================================================================== */
+        /* Contenedor principal para limitar el ancho y centrar el contenido */
+        .container {
+            max-width: 900px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Tarjeta de introducción resaltada con un borde lateral */
+        .introduccion {
+            background-color: var(--color-tarjeta);
+            border-left: 5px solid var(--color-secundario);
+            padding: 1.8rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(15, 28, 63, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .introduccion h2 {
+            color: var(--color-principal);
+            margin-bottom: 0.6rem;
+        }
+
+        .introduccion p {
+            text-align: justify;
+        }
+
+        /* Secciones de contenido general */
+        main section {
+            background-color: var(--color-tarjeta);
+            padding: 1.8rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(15, 28, 63, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        main h2 {
+            color: var(--color-principal);
+            margin-bottom: 1rem;
+        }
+
+        .paragraph-block {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+
+        /* ==========================================================================
+           5. BOTONES Y ENLACES DE ACCIÓN
+           ========================================================================== */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.4rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--color-secundario);
+            color: #ffffff;
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: var(--color-principal);
+        }
+
+        /* ==========================================================================
+           6. CONTENEDORES RESPONSIVOS PARA MULTIMEDIA (IFRAMES: YOUTUBE Y MAPAS)
+           ========================================================================== */
+        /* Mantiene la relación de aspecto 16:9 y hace que el iframe se adapte al ancho */
+        .video-container, .map-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Técnica hack 16:9 (9 / 16 = 0.5625) */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Ajusta el iframe para que ocupe el 100% del contenedor relativo */
+        .video-container iframe, .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ==========================================================================
+           7. PIE DE PÁGINA (FOOTER) Y GALERÍA EN CUADRÍCULA
+           ========================================================================== */
+        footer {
+            background-color: var(--color-principal);
+            color: #000000;
+            padding: 3rem 1.5rem 1.5rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-sub {
+            font-size: 0.95rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        /* Cuadrícula CSS Grid adaptable para las imágenes */
+        .image-gallery-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Columnas adaptables automáticamente */
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Tarjeta individual de imagen */
+        .image-card {
+            background-color: #f5d9b5;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Mantiene proporciones uniformes en todas las imágenes */
+        .image-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover; /* Recorta la imagen para llenar el contenedor sin deformarla */
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .image-caption {
+            font-size: 0.85rem;
+            color: #000000;
+            text-align: justify;
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            color: #ffffff;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.2rem;
+        }
+
+        /* ==========================================================================
+           8. DISEÑO RESPONSIVO (MEDIA QUERIES)
+           ========================================================================== */
+        /* Ajustes para pantallas con ancho menor o igual a 600px */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column; /* Apila el título, menú y selector verticalmente */
+                align-items: flex-start;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ENCABEZADO: Contiene la identidad del sitio, menú de navegación interna y el selector tipográfico -->
+    <header>
+        <h1 class="header-title">CONALEP TEXCOCO 185</h1>
+
+        <!-- Menú de navegación con anclas internas hacia los IDs de las secciones -->
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#intro">Introducción</a></li>
+                <li><a href="#contenido">Contenido</a></li>
+                <li><a href="#ubicacion">Ubicación</a></li>
+                <li><a href="#galeria">Galería</a></li>
+            </ul>
+        </nav>
+
+        <!-- Selector de fuentes funcional con CSS mediante inputs tipo radio -->
+        <div class="font-selector">
+            <span>Fuente:</span>
+            <input type="radio" name="font" id="font-roboto" checked>
+            <label for="font-roboto">Roboto</label>
+
+            <input type="radio" name="font" id="font-montserrat">
+            <label for="font-montserrat">Montserrat</label>
+
+            <input type="radio" name="font" id="font-courier">
+            <label for="font-courier">Courier</label>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL: Agrupa el contenido central delimitando su ancho -->
+    <div class="container" id="inicio">
+
+        <!-- SECCIÓN INTRODUCCIÓN: Bloque inicial destacado -->
+        <section id="intro" class="introduccion">
+            <h2>¿QUÉ OFRECEMOS?</h2>
+            <p>
+El Plantel 185 Texcoco prepara estudiantes como Profesionales Técnicos Bachiller, combinando estudios de bachillerato con formación técnica, prácticas profesionales y la posibilidad de continuar una carrera universitaria.
+Para conocer la oferta vigente, requisitos, turnos, fechas de registro y lugares disponibles, se puede llamar al 5959557026, 5959547262 o 5959547252, o escribir a texcoco@conalepmex.edu.mx.
+
+
+            </p>
+        </section>
+
+        <!-- SECCIÓN DE CONTENIDO PRINCIPAL -->
+        <main id="contenido">
+            <section>
+                <h2>Beneficios de estudiar en CONALEP Texcoco 185</h2>
+                <p class="paragraph-block">Los principales beneficios de su modelo educativo son:
+
+Bachillerato y carrera técnica:
+el alumno obtiene formación académica y conocimientos especializados.
+
+Preparación para trabajar:
+desarrolla habilidades prácticas relacionadas con su especialidad.
+
+Continuar estudiando: 
+puede utilizar su bachillerato para solicitar ingreso a universidades, de acuerdo con los requisitos de cada institución.
+
+Experiencia práctica:
+ la formación técnica permite relacionar los conocimientos con situaciones reales de trabajo.
+
+Desarrollo de emprendimientos: 
+algunas especialidades permiten crear proyectos o negocios propios.
+
+Vinculación con empresas: 
+existen oportunidades de prácticas profesionales y educación dual mediante convenios institucionales.</p>
+                
+
+                <!-- Grupo de botones con enlaces a recursos externos -->
+                <div class="button-group">
+                    <a href="https://www.conalepmex.edu.mx/educaci%C3%B3n/planteles-base/185-texcoco.html" class="btn btn-primary" target="_blank">PORTAL</a>
+                    <a href="https://www.facebook.com/p/Conalep-Plantel-Texcoco-185-100057069475055/" class="btn btn-secondary" target="_blank">REDES SOCIALES</a>
+                </div>
+            </section>
+
+           
+<!-- SECCIÓN DE VIDEO: Reproductor embebido de YouTube responsivo -->
+<section>
+    <h2>Contenido Audiovisual</h2>
+
+    <div class="video-container">
+        <iframe
+            src="https://www.youtube.com/embed/lnensXnK_5s"
+            title="Video de YouTube"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+        </iframe>
+    </div>
+</section>
+
+
+            <!-- SECCIÓN DE UBICACIÓN: Mapa embebido de Google Maps -->
+            <section id="ubicacion">
+                <h2>Nuestra Ubicación</h2>
+                <p class="paragraph-block">Encuentra nuestra localización </p>
+
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!3m2!1ses-419!2smx!4v1793934630655!5m2!1ses-419!2smx!6m8!1m7!1szPLZxSbNxgSmQ8jxN9Vk5A!2m2!1d19.53768910941848!2d-98.84581159177382!3f51.123357142910436!4f-18.900856345589787!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- PIE DE PÁGINA (FOOTER): Incluye la galería de 4 imágenes con CSS Grid y los derechos de autor -->
+    <footer id="galeria">
+        <div class="footer-content">
+            <h3 class="footer-title">CARRERAS TÉCNICAS</h3>
+            <p class="footer-sub">CONOCE LAS CARRERAS QUE OFRECE EL PLANTEL CONALEP TEXCOCO</p>
+
+            <!-- Grid de imágenes en tarjetas -->
+            <div class="image-gallery-4">
+                <div class="image-card">
+                    <img src="info.webp" alt="Imagen 1">
+                    <span class="image-caption">Informática: Aprendes a utilizar, programar y dar mantenimiento a sistemas y equipos de cómputo.</span>
+                </div>
+                <div class="image-card">
+                    <img src="inve.webp" alt="Imagen 2">
+                    <span class="image-caption">Industria del Vestido: Aprendes diseño, confección y elaboración de prendas de vestir.</span>
+                </div>
+                <div class="image-card">
+                    <img src="faen.webp" alt="Imagen 3">
+                    <span class="image-caption">Fuentes Alternas de Energía: Estudias cómo aprovechar energías renovables, como la solar y la eólica.</span>
+                </div>
+                <div class="image-card">
+                    <img src="cdia.webp" alt="Imagen 4">
+                    <span class="image-caption">Ciencia de Datos e Inteligencia Artificial: Aprendes a analizar datos y conocer tecnologías de inteligencia artificial.</span>
+                </div>
+            </div>
+
+            <p class="copyright">&copy; 2026 CONALEP 185. Todos los derechos reservados, HECTOR, DIEGO, JANNETE, DENISSE.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
